@@ -1,0 +1,91 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color:  whitesmoke;
+    height: 100vh;
+}
+
+.contenedor {
+    width: 1000px;
+    max-height: 550px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.tarjeta-imagen {
+    width: 100%;
+    height: 100%;
+    max-height: 550px;
+    background-image: url('/img/background.jpg');
+    background-size: cover ;
+}
+
+.tarjeta-formulario {
+    background-color: rgb(255, 255, 255);
+    padding: 3rem;
+}
+
+.detalles {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.formulario-titulo {
+    margin-bottom: 2rem;
+}
+
+.formulario-subtitulo {
+    color: rgb(75, 75, 75);
+}
+
+.campo {
+    margin: 0.5rem 0;
+}
+
+.campo-nombre {
+    font-size: 0.85rem;
+}
+
+.campo-entrada {
+    width: 100%;
+    height: 2rem;
+    padding: 1rem;
+    margin-top: 0.5rem;
+    border-radius: 3px;
+    border: 1px solid gray;
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+}
+
+.boton-subir {
+    padding: 0.7rem;
+    background-color: rgb(76, 148, 255);
+    border: none;
+    border-radius: 3px;
+    color: white;
+    font-weight: bold;
+}
+
+.footer a {
+    text-decoration: none;
+    text-align: center;
+    margin-top: 1rem;
+    color: rgb(78, 155, 255);
+    font-size: 12px;
+}
+
