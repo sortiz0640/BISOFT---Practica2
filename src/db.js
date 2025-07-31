@@ -1,19 +1,27 @@
 
 // base de datos quemada
 
-let db = [];
+let db = [{usuario: "admin", correo: "sortiz0640@gmail.com", contrasena: "admin"}];
 
 function agregar(data) {
+    const usuarioExistente = db.find(usuario => usuario.usuario === data.usuario);
+
+    if (usuarioExistente) {
+        return false; 
+    }
+
     db.push(data);
-    console.log("usuario agregado: ", data.nombre)
+    return true; 
 }
 
-function buscar(usuario, nombreUsuario) {
-    const resultado = db.find(item => item[usuario] === nombreUsuario)
 
-    
-    console.log("resultado: ", resultado);
-    return resultado; 
+
+function buscar(usuario, contrasena) {
+    const resultado = db.find(item =>
+        item.usuario === usuario && item.contrasena === contrasena
+    );
+
+    return resultado;
 }
 
-module.exports = db;
+module.exports = {agregar, buscar}

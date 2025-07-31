@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session')
 const app = express();
 const path = require('path');
-const db = require('../src/db');
+const db = require('./db');
 
 app.set('views', path.join(__dirname,'views'));
 app.engine('html', require('ejs').renderFile);
@@ -12,24 +12,36 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname,'public')));
 
+// express-session configuracion 
+app.use(session( {
+    secret: "epicmonekydriving$$$$12312311",
+    resave: false,
+    saveUninitialized: false
+}));
+
 app.listen(3000,()=>{
     console.log("Se conecto el puerto");
 })
 
 // Rutas
 app.get('/',(req,res)=>{
-    res.render("login");
+    res.render("login", { error: null});
 })
 
 app.get('/register', (req, res) => {
-    res.render('register');
+    res.render('register', { error: null});
 })
 
 app.get('/dashboard', (req, res) => {
-    res.render('dashboard')
+
+    if (req.session.usuario) {
+        res.render('dashboard', { usuario: req.session.usuario });
+    } else {
+        res.redirect('/');
+    }
 })
 
-app.get('/usuario-nuevo', (req, res) => {
+app.post('/usuario-nuevo', (req, res) => {
 
     const data = {
         usuario: req.body.usuario,
@@ -37,17 +49,34 @@ app.get('/usuario-nuevo', (req, res) => {
         contrasena: req.body.contrasena
     }
 
-    db.agregar(data);
-    res.render('dashboard');
+    const estado = db.agregar(data);
+    if (estado) {
+        res.render('login', { error: "Por favor, inicia sesion para continuar"});
+    } else {
+        res.render('register', { error: "El usuario ya se encuentra registrado"});
+    }
 });
 
-app.get('/usuario-buscar', (req, res) => {
+app.post('/usuario-buscar', (req, res) => {
+    
+    const { usuario, contrasena} = req.body;
+    const existeUsuario = db.buscar(usuario, contrasena);
 
-    const data = {
-        usuario: req.body.usuario,
-        contrasena: req.body.contrasena
+    if (existeUsuario) {
+        req.session.usuario = existeUsuario.usuario;
+        res.render('dashboard', { usuario: existeUsuario.usuario }); 
+        
+    } else {
+        res.render('login', { error: "Credenciales invalidas. Intente nuevamente." });
     }
+}); 
 
-    db.agregar(data);
-    res.render('dashboard');
+app.post("/usuario-cerrar", (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log("Error al cerrar sesión:", err);
+        } else {
+            res.render('login', { error: "Sesion cerrada. Ingresa tus credenciales para ingresar nuevamente." });
+        }
+    });
 });

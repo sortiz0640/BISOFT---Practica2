@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/sesion.css">
-    <title>Document</title>
+    <title>Login</title>
 </head>
 <body>
     <div class="contenedor">
         <div class="tarjeta-imagen">
         </div>
         <div class="tarjeta-formulario">
-            <form action="login">
+            <form action="/usuario-buscar" method="POST">
                 <div class="detalles">
                     <h1 class="formulario-titulo">Bienvenido</h1>
                     <p class="formulario-subtitulo">Escribe tus credenciales para ingresar</p>
+                    <% if (error) { %>
+                        <p class="formulario-subtitulo error"><%= error %></p>
+                    <% } %>
                 </div>
                 <div class="campo">
                     <label for="" class="campo-nombre">Nombre de Usuario</label>
-                    <input class="campo-entrada" type="text" placeholder="Usuario">
+                    <input class="campo-entrada" type="text" placeholder="Usuario" name="usuario">
                 </div>
                 <div class="campo">
                     <label for="" class="campo-nombre">Contraseña</label>
-                    <input class="campo-entrada" type="text" placeholder="Contraseña">
+                    <input class="campo-entrada" type="password" placeholder="Contraseña" name="contrasena">
                 </div>
                 <div class="footer">
-                    <button class="boton-subir">Iniciar Sesion</button>
-                    <a href="/register">¿Aun no tienes una cuenta? Crear una</a>
+                    <button class="boton-subir" type="submit">Iniciar Sesion</button>
+                    <a href="/register">¿Aun no tienes una cuenta? <u>Registrate</u></a>
                 </div>
             </form>
         </div>

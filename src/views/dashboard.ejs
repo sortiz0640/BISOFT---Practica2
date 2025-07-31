@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/sesion.css">
-    <title>Document</title>
+    <title>Dashboard</title>
 </head>
 <body>
     <div class="contenedor">
@@ -16,9 +16,11 @@
             </iframe>
         </div>
         <div class="tarjeta-formulario">
-            <form action="login">
+            <form action="/usuario-cerrar" method="POST">
                 <div class="detalles">
-                    <h1 class="formulario-titulo">Bienvenido!</h1>
+                    <% if (usuario) { %>
+                        <h1 class="formulario-titulo">Bienvenido <%= usuario %>!</h1>
+                    <% } %>
                     <p class="formulario-subtitulo">Estado de sesion actual 🫡</p>
                 </div>
                 <div class="contenido">
@@ -41,11 +43,11 @@
                         <div class="estado estado-secundario"></div>
                     </div>
                     <div class="footer">
-                        <button class="boton-subir">Salir</button>
+                        <button class="boton-subir" type="submit">Salir</button>
                         <p class="texto-secundario">Al cerrar sesion el acceso a esta pagina queda restringido y no podras seguir viendo el Epic Monkey driving ⚠️</p>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </body>

@@ -44,11 +44,11 @@ body {
 }
 
 .tarjeta-video iframe {
-  position: absolute;
+    position: absolute;
     top: 50%;
     left: 50%;
-    width: 185%; /* Escala más grande que el contenedor */
-    height: 200%; /* Escala más grande que el contenedor */
+    width: 235%; 
+    height: 200%; 
     transform: translate(-35%, -50%);
     border: none;
 }
@@ -60,7 +60,7 @@ body {
 
 .detalles {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2.25rem;
 }
 
 .formulario-titulo {
@@ -70,6 +70,11 @@ body {
 .formulario-subtitulo {
     color: rgb(138, 138, 138);
     font-size: 14px;
+}
+
+.error {
+    color:rgb(255, 76, 76);;
+    margin-top: 1.5rem;
 }
 
 .campo {
