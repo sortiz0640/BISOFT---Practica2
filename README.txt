@@ -13,7 +13,10 @@ de forma local, por lo que los datos no se guardan de forma permanente.
 
 >> Luego de registrar un usuario, se debe iniciar sesion para ir al dashboard.
 
->> Si se intenta acceder al dashboard sin estar logueado, se redireccionara al login. 
+>> Si se intenta acceder al dashboard sin estar logueado, se redireccionara al login.
+
+>> Iniciar la ejecucion con npm run dev 
+>> Direccion: localhost:3000
 _____________________________________________________________________________________
 Sebastian Ortiz Vargas - Practica 2 - Proyecto Ingenieria del Software
 _____________________________________________________________________________________

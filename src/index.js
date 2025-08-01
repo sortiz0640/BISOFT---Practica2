@@ -20,26 +20,41 @@ app.use(session( {
 }));
 
 app.listen(3000,()=>{
-    console.log("Se conecto el puerto");
+    console.log("Se conectó el puerto 3000");
+    console.log("http://localhost:3000");
 })
+
+// middleware
+
+const encriptarRuta = (req, res, next) => {
+  if (req.session.usuario) {
+    next();
+  } else {
+    res.render('login', { error: "Por favor, inicia sesión para continuar"});
+  }
+};
+
 
 // Rutas
-app.get('/',(req,res)=>{
-    res.render("login", { error: null});
-})
-
-app.get('/register', (req, res) => {
-    res.render('register', { error: null});
-})
-
-app.get('/dashboard', (req, res) => {
-
+app.get('/', (req,res)=>{
     if (req.session.usuario) {
         res.render('dashboard', { usuario: req.session.usuario });
     } else {
-        res.redirect('/');
+        res.render("login", { error: null});
     }
-})
+});
+
+app.get('/register', (req, res) => {
+        if (req.session.usuario) {
+        res.render('dashboard', { usuario: req.session.usuario });
+    } else {
+        res.render("register", { error: null});
+    }
+});
+
+app.get('/dashboard', encriptarRuta, (req, res) => {
+    res.render('dashboard', { usuario: req.session.usuario });
+});
 
 app.post('/usuario-nuevo', (req, res) => {
 
@@ -51,7 +66,7 @@ app.post('/usuario-nuevo', (req, res) => {
 
     const estado = db.agregar(data);
     if (estado) {
-        res.render('login', { error: "Por favor, inicia sesion para continuar"});
+        res.render('login', { error: "Por favor, inicia sesión para continuar"});
     } else {
         res.render('register', { error: "El usuario ya se encuentra registrado"});
     }
@@ -67,7 +82,7 @@ app.post('/usuario-buscar', (req, res) => {
         res.render('dashboard', { usuario: existeUsuario.usuario }); 
         
     } else {
-        res.render('login', { error: "Credenciales invalidas. Intente nuevamente." });
+        res.render('login', { error: "Credenciales inválidas. Intente nuevamente." });
     }
 }); 
 
@@ -76,7 +91,7 @@ app.post("/usuario-cerrar", (req, res) => {
         if (err) {
             console.log("Error al cerrar sesión:", err);
         } else {
-            res.render('login', { error: "Sesion cerrada. Ingresa tus credenciales para ingresar nuevamente." });
+            res.render('login', { error: "Sesión cerrada. Ingresa tus credenciales para ingresar nuevamente." });
         }
     });
 });
